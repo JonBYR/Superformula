@@ -7,15 +7,11 @@
 #include <vector>
 #include <cmath>
 #include "SDL.h"
+#include "InadequeteVector.h"
 #undef main //WHEN USING SDL THIS COMMAND IS NEEDED
 #define USE_MATH_DEFINES
 #define M_PI  3.14159265358979323846 //should be the value in the <math.h> directory
 using namespace std;
-double lerp(double axisValue) {
-    int bounda = 0;
-    int boundb = 359;
-    return bounda + (axisValue * (boundb - bounda));
-}
 void superformula(double& x, double& y, double r, vector<double> p) {
     double m, n, na, nb, a, b;
     m = p[0];
@@ -26,7 +22,7 @@ void superformula(double& x, double& y, double r, vector<double> p) {
     b = p[5];
     double ra = pow(abs(cos((m * r) / 4) / a), na);
     double rb = pow(abs(sin((m * r) / 4) / b), nb);
-    double raux = ra + rb;
+    double raux = pow((ra + rb), -(1/n));
     x = raux * cos(r);
     y = raux * sin(r);
 }
@@ -49,6 +45,7 @@ int main()
         doubleParameters.clear(); //in case the while loop failed and needs cleaning
         try {
             std::cout << "Please input the parameters you would like to use to generate your superformula in the form m n na nb a b";
+            std::cout << endl;
             string parameters;
             getline(cin, parameters);
             istringstream spaceRemover(parameters);
@@ -57,27 +54,32 @@ int main()
                 doubleParameters.push_back(stod(doubleToAssign));
             }
             doubleInput = true; //finish while loop
+            if (doubleParameters.size() != 6) throw InadequeteVector();
+        }
+        catch (InadequeteVector e) {
+            cout << e;
+            doubleInput = false;
         }
         catch (...) {
             cout << "Please input double values for this project" << std::endl;
             doubleInput = false;
         }
+        
     }
     SDL_Init(SDL_INIT_EVERYTHING);
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
-    int width = 1000;
-    int height = 1000;
+    int width = 600;
+    int height = 600;
     SDL_CreateWindowAndRenderer(width, height, 0, &window, &renderer);
     SDL_SetWindowTitle(window, "Superformula experiment");
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    SDL_RenderSetScale(renderer, 2, 2);
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     double x, y;
+    int k = 100; //require a scaling factor to set the centre of sdl = 0,0 for the polar plane
     for (int i = 0; i <= 359; i++) {
         double rad = i * (M_PI / 180); //radians formula
         superformula(x, y, rad, doubleParameters); //these values will be between -1 through to 1 and will need to be interpolated on the sdl graph
-        cout << "x: " << x << " y: " << y << endl;
-        SDL_RenderDrawPointF(renderer, x, y);
+        SDL_RenderDrawPointF(renderer, (x * k + width / 2.0f), y * -k + height / 2.0f); //x and y represent the polar coordinates that are mapped to the sdl coordinates
     }
     SDL_RenderPresent(renderer);
     SDL_Delay(10000);

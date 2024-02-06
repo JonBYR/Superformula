@@ -1,0 +1,6 @@
+﻿  Superformulae.cpp
+C:\Users\Computing\source\repos\Superformulae\Superformulae\Superformulae.cpp(12,1): warning C4005: 'M_PI': macro redefinition
+C:\Users\Computing\source\repos\Superformulae\packages\sdl2.nuget.2.30.0\build\native\include\SDL_stdinc.h(620,1): message : see previous definition of 'M_PI'
+C:\Users\Computing\source\repos\Superformulae\Superformulae\Superformulae.cpp(80,51): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Computing\source\repos\Superformulae\Superformulae\Superformulae.cpp(80,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Superformulae.vcxproj -> C:\Users\Computing\source\repos\Superformulae\x64\Debug\Superformulae.exe

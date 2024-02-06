@@ -78,7 +78,7 @@ int main()
     int k = 100; //require a scaling factor to set the centre of sdl = 0,0 for the polar plane
     for (int i = 0; i <= 359; i++) {
         double rad = i * (M_PI / 180); //radians formula
-        superformula(x, y, rad, doubleParameters); //these values will be between -1 through to 1 and will need to be interpolated on the sdl graph
+        superformula(x, y, rad, doubleParameters); //values of x and y will vary depending on the input parameters
         SDL_RenderDrawPointF(renderer, (x * k + width / 2.0f), y * -k + height / 2.0f); //x and y represent the polar coordinates that are mapped to the sdl coordinates
     }
     SDL_RenderPresent(renderer);

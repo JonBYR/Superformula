@@ -70,13 +70,13 @@ int main()
     SDL_Window* window = nullptr;
     SDL_Renderer* renderer = nullptr;
     int width = 600;
-    int height = 600;
+    int height = 600; //note, larger values of a and b will need a larger window
     SDL_CreateWindowAndRenderer(width, height, 0, &window, &renderer);
     SDL_SetWindowTitle(window, "Superformula experiment");
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     double x, y;
     int k = 100; //require a scaling factor to set the centre of sdl = 0,0 for the polar plane
-    for (int i = 0; i <= 359; i++) {
+    for (int i = 0; i <= 359; i += 1) { //this may need to be stepped through by 0.1 rather than 1 for better accuracy when drawing in SDL
         double rad = i * (M_PI / 180); //radians formula
         superformula(x, y, rad, doubleParameters); //values of x and y will vary depending on the input parameters
         SDL_RenderDrawPointF(renderer, (x * k + width / 2.0f), y * -k + height / 2.0f); //x and y represent the polar coordinates that are mapped to the sdl coordinates

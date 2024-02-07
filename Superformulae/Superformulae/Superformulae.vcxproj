@@ -131,10 +131,10 @@
     <ClCompile Include="Superformulae.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ClInclude Include="InadequeteVector.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="InadequeteVector.h" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
